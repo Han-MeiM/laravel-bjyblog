@@ -3,9 +3,6 @@ services:
   nginx:
     image: baijunyao/nginx
     container_name: laravel-bjyblog-nginx
-    # depends_on:
-      # - mysql
-      # - php
     volumes:
       - .:/app
       - ./docker/nginx/laravel-bjyblog.conf:/etc/nginx/conf.d/laravel-bjyblog.conf
@@ -27,13 +24,14 @@ services:
   #   volumes:
   #     - .:/app
 
-  # mysql:
-  #   image: mysql:8.0
-  #   container_name: laravel-bjyblog-mysql
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=test
-  #     - MYSQL_DATABASE=test
-  #     - MYSQL_USER=test
-  #     - MYSQL_PASSWORD=test
-  #   ports:
-  #     - "1027:3307"
+  mysql:
+    image: mysql:8.0
+    container_name: laravel-bjyblog-mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=laravel_bjyblog
+      - MYSQL_DATABASE=laravel_bjyblog
+      - MYSQL_USER=laravel_bjyblog
+      - MYSQL_PASSWORD=laravel_bjyblog
+    ports:
+      - "1027:3306"
